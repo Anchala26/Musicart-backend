@@ -26,11 +26,10 @@ const signupUser = async (req, res) => {
       email,
       mobile,
       password: hashedPassword,
-      //   cart: [],
     });
 
     const token = jwt.sign(
-      { email, password: hashedPassword },
+      { userId: userData._id },
       process.env.JWT_SECRET
       // { expiresIn: 1800 }
     );
@@ -39,6 +38,7 @@ const signupUser = async (req, res) => {
       message: "User registered successfully",
       token: token,
       userid: userData._id,
+      username: userData.name,
     });
   } catch (error) {
     return res.status(500).json({
@@ -62,20 +62,20 @@ const loginUser = async (req, res) => {
         message: "Incorrect password, Try Again",
       });
     }
-    const token = jwt.sign({ email }, process.env.JWT_SECRET);
+
+    const token = jwt.sign(
+      { userId: user._id },
+      process.env.JWT_SECRET
+      // { expiresIn: 1800 }
+    );
 
     res.json({
       message: "User logged in successfully",
       token: token,
+      userid: user._id,
       name: user.name,
     });
-    //     .status(200)
-    //     .send({ message: "Login successful", token, userid: user._id })
-    // );
   } catch (error) {
-    // return res.status(503).json({
-    //   message: "Wrong Email or Password",
-    // });
     console.log(error);
   }
 };

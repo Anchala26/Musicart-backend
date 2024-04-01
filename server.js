@@ -6,6 +6,7 @@ require("dotenv").config();
 const bodyParser = require("body-parser");
 const authRoutes = require("./routes/auth");
 const productRoutes = require("./routes/Product");
+const cartRoutes = require("./routes/cart");
 
 //connect to server
 const app = express();
@@ -36,3 +37,4 @@ app.listen(PORT, () => {
 
 app.use("/auth", authRoutes);
 app.use("/products", productRoutes);
+app.use("/api", cartRoutes);

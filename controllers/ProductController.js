@@ -97,7 +97,7 @@ async function filterProducts(req, res) {
     const filteredProducts = await ProductModel.find(query);
     res.json(filteredProducts);
   } catch (err) {
-    res.json(err);
+    res.json("Error", err);
   }
 }
 
